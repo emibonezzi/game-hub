@@ -1,9 +1,16 @@
-import { Container, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import Display from "./components/Display";
+import { useState } from "react";
+import { Games } from "./services/games-service";
+import useGames from "./hooks/useGames";
 
 const App = () => {
+  const { listOfGames, setListOfGames } = useGames();
+
+  const [selectedGenre, setSelectedGenre] = useState(0);
+
   return (
     <Grid
       templateAreas={`"header header"
@@ -18,10 +25,10 @@ const App = () => {
         <Header />
       </GridItem>
       <GridItem area={"nav"}>
-        <Filter />
+        <Filter onSelectedGenre={(id) => setSelectedGenre(id)} />
       </GridItem>
       <GridItem area={"main"}>
-        <Display />
+        <Display gamesList={listOfGames} />
       </GridItem>
     </Grid>
   );

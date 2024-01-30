@@ -1,44 +1,43 @@
 import {
+  Button,
   Flex,
   Heading,
   List,
   ListIcon,
   ListItem,
-  Spacer,
-  VStack,
 } from "@chakra-ui/react";
+import useGenres from "../hooks/useGenres";
+import { Genre } from "../services/genre-service";
 
-const Filter = () => {
+interface Props {
+  onSelectedGenre: (id: number) => void;
+}
+
+const Filter = ({ onSelectedGenre }: Props) => {
+  const { listOfGenres, setListOfGenres, error, setError } = useGenres();
+
   return (
-    <Flex flexDirection="column" gap={4}>
-      <Heading size="lg">Genres</Heading>
-      <List spacing={3}>
-        <ListItem>
-          <ListIcon /> Action
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Adventure
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Indie
-        </ListItem>
-        <ListItem>
-          <ListIcon /> RPG
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Action
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Action
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Action
-        </ListItem>
-        <ListItem>
-          <ListIcon /> Action
-        </ListItem>
-      </List>
-    </Flex>
+    <>
+      {error && <p className="text-danger">{error}</p>}
+      <Flex flexDirection="column" gap={4}>
+        <Heading size="lg">Genres</Heading>
+        <List spacing={3}>
+          {listOfGenres.map((genre) => {
+            return (
+              <ListItem key={genre.id}>
+                <ListIcon /> {genre.name}
+                <Button
+                  onClick={() => onSelectedGenre(genre.id)}
+                  colorScheme="blue"
+                >
+                  Button
+                </Button>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Flex>
+    </>
   );
 };
 
