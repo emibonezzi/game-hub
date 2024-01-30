@@ -7,9 +7,19 @@ import { Games } from "./services/games-service";
 import useGames from "./hooks/useGames";
 
 const App = () => {
-  const { listOfGames, setListOfGames } = useGames();
-
   const [selectedGenre, setSelectedGenre] = useState(0);
+  const { listOfGames } = useGames();
+
+  const filteredList =
+    selectedGenre != 0
+      ? listOfGames.filter((game) => {
+          for (let genre of game.genres) {
+            if (genre.id === selectedGenre) {
+              return game;
+            }
+          }
+        })
+      : listOfGames;
 
   return (
     <Grid
@@ -28,7 +38,7 @@ const App = () => {
         <Filter onSelectedGenre={(id) => setSelectedGenre(id)} />
       </GridItem>
       <GridItem area={"main"}>
-        <Display gamesList={listOfGames} />
+        <Display gamesList={filteredList} />
       </GridItem>
     </Grid>
   );
