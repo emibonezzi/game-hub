@@ -11,13 +11,25 @@ import {
 } from "@chakra-ui/react";
 import { Game } from "../services/games-service";
 import usePlatforms from "../hooks/usePlatforms";
+import FilterPlatform from "./FilterPlatform";
+import { useState } from "react";
 
 interface Props {
   gamesList: Game[];
 }
 
 const Display = ({ gamesList }: Props) => {
-  const { platformsList, platformError } = usePlatforms();
+  const [selectedPlatform, setSelectedPlatform] = useState("");
+
+  const filteredByPlatform = selectedPlatform
+    ? gamesList.filter((game) => {
+        for (let p of game.parent_platforms) {
+          if (p.platform.name === selectedPlatform) {
+            return game;
+          }
+        }
+      })
+    : gamesList;
 
   return (
     <div>
@@ -25,17 +37,12 @@ const Display = ({ gamesList }: Props) => {
         <Heading size="2xl" marginBottom="10px">
           Games
         </Heading>
-        <HStack maxW="fit-content">
-          {platformError && <p>{platformError}</p>}
-          <Select>
-            {platformsList.map((p) => {
-              return <option key={p.id}>{p.name}</option>;
-            })}
-          </Select>
-        </HStack>
+        <FilterPlatform
+          onSelectedPlatform={(platform) => setSelectedPlatform(platform)}
+        ></FilterPlatform>
       </Flex>
       <Flex flexDirection="row" gap={3} flexWrap="wrap">
-        {gamesList.map((game) => {
+        {filteredByPlatform.map((game) => {
           return (
             <Card key={game.id} maxW="xs">
               <CardBody>

@@ -4,6 +4,7 @@ import create from "./http-service";
 export interface GamePlatform {
   platform: {
     id: number;
+    name: string;
     slug: string;
   };
 }
