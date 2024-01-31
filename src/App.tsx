@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import Filter from "./components/Filter";
 import Display from "./components/Display";
 import { useState } from "react";
-import { Games } from "./services/games-service";
 import useGames from "./hooks/useGames";
 
 const App = () => {

@@ -20,7 +20,11 @@ const FilterPlatform = ({ onSelectedPlatform }: Props) => {
           }}
         >
           {platformsList.map((p) => {
-            return <option key={p.id}>{p.name}</option>;
+            return (
+              <option value={p.name} key={p.id}>
+                {p.name}
+              </option>
+            );
           })}
         </Select>
       </HStack>

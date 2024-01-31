@@ -6,8 +6,8 @@ import "./index.css";
 
 const theme = extendTheme({
   config: {
-    initialColorMode: "dark",
-    useSystemColorMode: true,
+    initialColorMode: "system",
+    useSystemColorMode: false,
   },
 });
 
