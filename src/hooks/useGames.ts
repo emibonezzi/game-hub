@@ -10,10 +10,15 @@ const useGames = () => {
   useEffect(() => {
     const { request, cancel } = gamesService.getAll<Games>();
 
-    request.then((res) => setListOfGames(res.data.results));
+    request
+      .then((res) => {
+        console.log(res.data);
+        setListOfGames(res.data.results);
+      })
+      .catch((err) => setError(err.message));
   }, []);
 
-  return { listOfGames, setListOfGames };
+  return { listOfGames, setListOfGames, error };
 };
 
 export default useGames;

@@ -1,0 +1,16 @@
+const platforms = {
+  pc: "",
+  playstation: "",
+  xbox: "",
+  ios: "",
+  android: "",
+  mac: "",
+  linux: "",
+  nintendo: "",
+  atari: "",
+  "commodore-amiga": "",
+  sega: "",
+  "3do": "",
+  "neo-geo": "",
+  web: "",
+};

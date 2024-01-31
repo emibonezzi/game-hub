@@ -1,10 +1,14 @@
 import {
+  Box,
   Button,
   Flex,
+  HStack,
   Heading,
+  Image,
   List,
   ListIcon,
   ListItem,
+  Stack,
 } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import { Genre } from "../services/genre-service";
@@ -14,7 +18,7 @@ interface Props {
 }
 
 const Filter = ({ onSelectedGenre }: Props) => {
-  const { listOfGenres, setListOfGenres, error, setError } = useGenres();
+  const { listOfGenres, error } = useGenres();
 
   return (
     <>
@@ -24,15 +28,16 @@ const Filter = ({ onSelectedGenre }: Props) => {
         <List spacing={3}>
           {listOfGenres.map((genre) => {
             return (
-              <ListItem key={genre.id}>
-                <ListIcon /> {genre.name}
-                <Button
-                  onClick={() => onSelectedGenre(genre.id)}
-                  colorScheme="blue"
-                >
-                  Button
+              <Flex alignItems="center" key={genre.id}>
+                <Image
+                  src={genre.image_background}
+                  boxSize="35px"
+                  borderRadius="full"
+                />
+                <Button onClick={() => onSelectedGenre(genre.id)} bg="none">
+                  {genre.name}
                 </Button>
-              </ListItem>
+              </Flex>
             );
           })}
         </List>

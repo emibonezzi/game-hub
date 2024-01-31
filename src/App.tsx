@@ -8,7 +8,7 @@ import useGames from "./hooks/useGames";
 
 const App = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
-  const { listOfGames } = useGames();
+  const { listOfGames, error } = useGames();
 
   const filteredList =
     selectedGenre != 0
@@ -38,6 +38,7 @@ const App = () => {
         <Filter onSelectedGenre={(id) => setSelectedGenre(id)} />
       </GridItem>
       <GridItem area={"main"}>
+        {error && <p>{error}</p>}
         <Display gamesList={filteredList} />
       </GridItem>
     </Grid>
