@@ -11,14 +11,20 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { MdGames } from "react-icons/md";
 
-const Header = () => {
+interface Props {
+  onSearch: (term: string) => void;
+}
+
+const Header = ({ onSearch }: Props) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <div>
       <Flex gap="3" alignItems="center">
         <MdGames size={50} />
-        <InputGroup>
+        <InputGroup
+          onChange={(e) => onSearch((e.target as HTMLInputElement).value)}
+        >
           <InputLeftElement pointerEvents="none">
             <FaSearch />
           </InputLeftElement>

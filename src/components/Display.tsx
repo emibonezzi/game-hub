@@ -24,8 +24,8 @@ const Display = ({ gamesList, loading }: Props) => {
         {loading && <Heading size={"2xl"}>LOADING</Heading>}
         {gamesList.map((game) => {
           return (
-            <GridItem w="100%">
-              <Card key={game.id} maxW="xs">
+            <GridItem key={game.id} w="100%">
+              <Card maxW="xs">
                 <CardBody>
                   <Image objectFit="cover" src={game.background_image}></Image>
                   <Stack maxW="100%" mt="6" spacing="3">
@@ -34,6 +34,7 @@ const Display = ({ gamesList, loading }: Props) => {
                         {game.parent_platforms.map((p) => {
                           return (
                             <Icon
+                              key={p.platform.id}
                               color="grey"
                               width="20px"
                               icon={`bi:${p.platform.slug}`}

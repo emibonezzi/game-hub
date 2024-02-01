@@ -24,11 +24,7 @@ const OrderBy = ({ onSelectedOrder }: Props) => {
         >
           {orderFilters.map((o) => {
             return (
-              <option
-                selected={o.order_slug === "metacritic" ? true : false}
-                value={o.order_slug}
-                key={o.id}
-              >
+              <option value={o.order_slug} key={o.id}>
                 Order by: {o.order_name}
               </option>
             );

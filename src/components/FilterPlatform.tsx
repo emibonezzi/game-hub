@@ -22,11 +22,7 @@ const FilterPlatform = ({ listOfPlatforms, onSelectedPlatform }: Props) => {
         >
           {listOfPlatforms.map((p) => {
             return (
-              <option
-                selected={p.name === "Xbox" ? true : false}
-                value={p.name}
-                key={p.id}
-              >
+              <option value={p.name} key={p.id}>
                 {p.name}
               </option>
             );

@@ -14,6 +14,7 @@ const App = () => {
   const [selectedPlatform, setSelectedPlatform] = useState();
   const [selectedGenre, setSelectedGenre] = useState<Genre>();
   const [selectedOrder, setSelectedOrder] = useState();
+  const [searchTerm, setSearchTerm] = useState();
   const { listOfGames, gameError, isLoading } = useGames();
   const { listOfGenres, genreError } = useGenres();
   const { platformsList, platformError } = usePlatforms();
@@ -50,6 +51,15 @@ const App = () => {
       })
     : filteredByPlatform;
 
+  const filterBySearch = searchTerm
+    ? orderedBy.filter((game) => {
+        let regex = new RegExp(searchTerm, "g");
+        if (regex.test(game.name.toLowerCase())) {
+          return game;
+        }
+      })
+    : orderedBy;
+
   return (
     <Grid
       templateAreas={`"header header"
@@ -61,7 +71,7 @@ const App = () => {
       gap={5}
     >
       <GridItem area={"header"}>
-        <Header />
+        <Header onSearch={(term) => setSearchTerm(term)} />
       </GridItem>
       <GridItem area={"nav"}>
         {genreError && <p className="text-danger">{genreError}</p>}
@@ -88,7 +98,7 @@ const App = () => {
             ></OrderBy>
           </Flex>
         </Flex>
-        <Display gamesList={orderedBy} loading={isLoading} />
+        <Display gamesList={filterBySearch} loading={isLoading} />
       </GridItem>
     </Grid>
   );
