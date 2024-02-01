@@ -1,26 +1,32 @@
 import { HStack, Select } from "@chakra-ui/react";
-import usePlatforms from "../hooks/usePlatforms";
+import { FaLeaf } from "react-icons/fa";
+
+interface PlatformDetail {
+  id: string;
+  name: string;
+}
 
 interface Props {
+  listOfPlatforms: PlatformDetail[];
   onSelectedPlatform: (platform: string) => void;
 }
 
-const FilterPlatform = ({ onSelectedPlatform }: Props) => {
-  const { platformsList, platformError } = usePlatforms();
-
+const FilterPlatform = ({ listOfPlatforms, onSelectedPlatform }: Props) => {
   return (
     <div>
       <HStack maxW="fit-content">
-        {platformError && <p>{platformError}</p>}
         <Select
           onChange={(e) => {
-            console.log(e.target.value);
             onSelectedPlatform(e.target.value);
           }}
         >
-          {platformsList.map((p) => {
+          {listOfPlatforms.map((p) => {
             return (
-              <option value={p.name} key={p.id}>
+              <option
+                selected={p.name === "Xbox" ? true : false}
+                value={p.name}
+                key={p.id}
+              >
                 {p.name}
               </option>
             );

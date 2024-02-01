@@ -19,7 +19,9 @@ const usePlatforms = () => {
     const { request, cancel } = platformsService.getAll<Platforms>();
 
     request
-      .then((res) => setPlatformsList(res.data.results))
+      .then((res) => {
+        setPlatformsList(res.data.results);
+      })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setPlatformError(err.message);

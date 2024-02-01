@@ -15,6 +15,9 @@ export interface Game {
   genres: Genre[];
   background_image: string;
   parent_platforms: GamePlatform[];
+  metacritic: number;
+  added: number;
+  released: string;
 }
 
 export interface Games {

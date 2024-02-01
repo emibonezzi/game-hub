@@ -1,5 +1,16 @@
-import { Card, CardBody, Flex, Heading, Image, Stack } from "@chakra-ui/react";
+import {
+  Badge,
+  Card,
+  CardBody,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Stack,
+} from "@chakra-ui/react";
 import { Game } from "../services/games-service";
+import { Icon } from "@iconify-icon/react/dist/iconify.js";
 
 interface Props {
   gamesList: Game[];
@@ -9,30 +20,44 @@ interface Props {
 const Display = ({ gamesList, loading }: Props) => {
   return (
     <div>
-      <Flex flexDirection="row" gap={3} flexWrap="wrap">
+      <Grid gridTemplateColumns="repeat(3, 1fr)" gap={1} p={10}>
         {loading && <Heading size={"2xl"}>LOADING</Heading>}
         {gamesList.map((game) => {
           return (
-            <Card key={game.id} maxW="xs">
-              <CardBody>
-                <Image src={game.background_image}></Image>
-                <Stack mt="6" spacing="3">
-                  <Flex>
-                    {game.parent_platforms.map((p) => {
-                      return (
-                        <Heading key={p.platform.id} size="xs">
-                          {p.platform.slug}
-                        </Heading>
-                      );
+            <GridItem w="100%">
+              <Card key={game.id} maxW="xs">
+                <CardBody>
+                  <Image objectFit="cover" src={game.background_image}></Image>
+                  <Stack maxW="100%" mt="6" spacing="3">
+                    <Flex justifyContent={"space-between"} flexWrap="wrap">
+                      <Flex gap={1}>
+                        {game.parent_platforms.map((p) => {
+                          return (
+                            <Icon
+                              color="grey"
+                              width="20px"
+                              icon={`bi:${p.platform.slug}`}
+                            ></Icon>
+                          );
+                        })}
+                      </Flex>
+                      <Badge fontSize="md" colorScheme="green">
+                        {game.metacritic}
+                      </Badge>
+                    </Flex>
+                    <Heading size="lg"> {game.name}</Heading>
+                    {/*                   <Heading size="sm">
+                    {game.genres.map((g) => {
+                      return <Heading size="xs">{g.name}</Heading>;
                     })}
-                  </Flex>
-                  <Heading size="lg"> {game.name}</Heading>
-                </Stack>
-              </CardBody>
-            </Card>
+                  </Heading> */}
+                  </Stack>
+                </CardBody>
+              </Card>
+            </GridItem>
           );
         })}
-      </Flex>
+      </Grid>
     </div>
   );
 };
