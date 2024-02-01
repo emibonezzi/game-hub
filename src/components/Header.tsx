@@ -26,7 +26,7 @@ const Header = () => {
         </InputGroup>
         <Stack align="center" direction="row">
           <Switch onChange={() => toggleColorMode()} size="md" />{" "}
-          <Box w="10ch">{colorMode === "light" ? "Dark" : "Light"} Mode</Box>
+          <Box w="10ch">{colorMode === "light" ? "Light" : "Dark"} Mode</Box>
         </Stack>
       </Flex>
     </div>

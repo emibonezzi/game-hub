@@ -1,32 +1,18 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Heading,
-  Image,
-  List,
-  ListIcon,
-  ListItem,
-  Stack,
-} from "@chakra-ui/react";
-import useGenres from "../hooks/useGenres";
+import { Button, Flex, Heading, Image, List } from "@chakra-ui/react";
 import { Genre } from "../services/genre-service";
 
 interface Props {
-  onSelectedGenre: (id: number) => void;
+  genreList: Genre[];
+  onSelectedGenre: (genre: Genre) => void;
 }
 
-const Filter = ({ onSelectedGenre }: Props) => {
-  const { listOfGenres, error } = useGenres();
-
+const Filter = ({ genreList, onSelectedGenre }: Props) => {
   return (
     <>
-      {error && <p className="text-danger">{error}</p>}
       <Flex flexDirection="column" gap={4}>
         <Heading size="lg">Genres</Heading>
         <List spacing={3}>
-          {listOfGenres.map((genre) => {
+          {genreList.map((genre) => {
             return (
               <Flex alignItems="center" key={genre.id}>
                 <Image
@@ -34,7 +20,7 @@ const Filter = ({ onSelectedGenre }: Props) => {
                   boxSize="35px"
                   borderRadius="full"
                 />
-                <Button onClick={() => onSelectedGenre(genre.id)} bg="none">
+                <Button onClick={() => onSelectedGenre(genre)} bg="none">
                   {genre.name}
                 </Button>
               </Flex>

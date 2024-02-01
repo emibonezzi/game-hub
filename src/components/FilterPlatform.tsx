@@ -1,5 +1,4 @@
 import { HStack, Select } from "@chakra-ui/react";
-import React from "react";
 import usePlatforms from "../hooks/usePlatforms";
 
 interface Props {

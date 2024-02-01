@@ -4,7 +4,7 @@ import { CanceledError } from "axios";
 
 const useGenres = () => {
   const [listOfGenres, setListOfGenres] = useState(<Genre[]>[]);
-  const [error, setError] = useState("");
+  const [genreError, setError] = useState("");
 
   useEffect(() => {
     const { request, cancel } = genreService.getAll<Genres>();
@@ -21,7 +21,7 @@ const useGenres = () => {
     return () => cancel();
   }, []);
 
-  return { error, setError, listOfGenres, setListOfGenres };
+  return { genreError, setError, listOfGenres, setListOfGenres };
 };
 
 export default useGenres;
